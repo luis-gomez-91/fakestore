@@ -10,22 +10,41 @@
 <body>
 
     <div class="container">
-        <div class="row mt-3">
+        <div class="row mt-3 gy-3">
             {% for x in products %}
-                <div class="col-3">
-                    <div class="card" style="width: 18rem;">
-                    <img src="{{ x.image }}" class="card-img-top" alt="product">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ x.title }}</h5>
-                        <p class="card-text">{{ x.description }}</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                    <div class="border shadow d-flex flex-column items-center justify-center p-3">
+                        <img src="{{ x.image }}" class="card-img-top" alt="product" style="height: 150px; object-fit: contain">
+                        <div class="d-flex flex-column justify-center items-center mt-3">
+                            <h5 class="text-center">{{ x.title }}</h5>
+                            <span class="text-center alert alert-info">${{ x.price }}</span>
+                            <a href="#" class="text-end" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target=".modal{{ x.id }}">Ver mas</a>
+                        </div>
                     </div>
                 </div>
+
+                <div class="modal fade modal{{ x.id }}" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ x.title }}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{ x.description }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Understood</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
             {% endfor %}
         </div>
     </div>
-    
+
     
 </body>
 </html>
