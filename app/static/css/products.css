@@ -1,0 +1,29 @@
+nav {
+    width: 100%;
+    height: 80px;
+    background: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1em;
+}
+
+nav img {
+    height: 70px;
+}
+
+#linksContaienr {
+    display: flex;
+    gap: 1px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 25px 30px;
+}
+
+nav a:hover {
+    background: #333;
+    color: yellow;
+}

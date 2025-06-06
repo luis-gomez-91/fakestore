@@ -1,16 +1,10 @@
-from flask import Flask, render_template, jsonify, request, redirect, url_for, blueprints
+from flask import render_template, Blueprint, request, redirect, url_for, session
 import requests
-from config import get_conection
+from app.config import get_conection
 
-app = Flask(__name__)
+login_bp = Blueprint('login', __name__)
 
-@app.route('/')
-def products():
-    response = requests.get('https://fakestoreapi.com/products')
-    data = response.json()
-    return render_template('index.html', products = data)
-
-@app.route('/login', methods=['GET', 'POST'])
+@login_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         user = request.form['usuario']
@@ -21,8 +15,10 @@ def login():
         cursor.execute("select * from users where username=%s  and password=%s;", (user, passw))
         datos = cursor.fetchall()
 
+        session['actual_user'] = datos
+
         if datos:
-            return redirect(url_for('products'))
+            return redirect(url_for('products.products'))
         else:
             return render_template('login.html', error = "Credenciales incorrectas")
         
